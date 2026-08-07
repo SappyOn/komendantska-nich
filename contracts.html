@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Угоди та контракти — Fall of London 2020</title>
+  <style>
+    :root {
+      --bg:#0c0b0d;
+      --panel:#151317;
+      --panel-2:#1b181c;
+      --ink:#e3ddd4;
+      --muted:#a69c8f;
+      --gold:#b99c61;
+      --gold-2:#d3b875;
+      --red:#8f3038;
+      --red-2:#b74a54;
+      --line:#362f31;
+      --green:#6f8b73;
+      --shadow:0 20px 50px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 20% -10%,#21171a 0,transparent 36%),var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.65}
+    a{color:var(--gold-2);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 28px 90px}
+    header{padding:34px 0 48px;border-bottom:1px solid var(--line)}
+    .back{font-family:Arial,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .eyebrow{margin-top:55px;font-family:Arial,sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+    h1{margin:.18em 0 0;font-size:clamp(46px,8vw,92px);line-height:.98;font-weight:500;letter-spacing:-.045em}
+    .subtitle{max-width:760px;margin:24px 0 0;font-size:22px;color:#c9c0b5}
+    .lead{max-width:920px;margin:34px 0 0;padding:22px 26px;border-left:3px solid var(--red);background:linear-gradient(90deg,rgba(143,48,56,.14),transparent);font-size:20px}
+    nav{margin:28px 0 0;display:flex;flex-wrap:wrap;gap:10px;font-family:Arial,sans-serif;font-size:13px}
+    nav a{border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:var(--muted)}
+    section{padding:66px 0 0}
+    h2{margin:0 0 14px;font-size:39px;line-height:1.12;font-weight:500;letter-spacing:-.025em}
+    h3{margin:34px 0 12px;font-size:25px;font-weight:500;color:#ece4d9}
+    h4{margin:0 0 8px;font-family:Arial,sans-serif;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+    p{margin:10px 0 16px}
+    .muted{color:var(--muted)}
+    .rule{height:1px;background:var(--line);margin:36px 0}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .card{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+    .card p:last-child{margin-bottom:0}
+    .phase{position:relative;overflow:hidden}
+    .phase:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+    .phase.crisis:before{background:var(--red-2)}
+    .phase.final:before{background:var(--green)}
+    .metric{font-size:31px;line-height:1.05;color:var(--gold-2)}
+    .label{margin-top:6px;font-family:Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    .callout{margin:28px 0;padding:24px 26px;background:#121013;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;font-size:18px}
+    .callout.red{border-left-color:var(--red-2)}
+    .formula{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:24px 0;font-family:Arial,sans-serif;font-size:13px;color:#d6cdc2}
+    .formula span{padding:8px 10px;border:1px solid var(--line);background:#131115;border-radius:8px}
+    .formula b{color:var(--gold);font-size:17px}
+    table{width:100%;border-collapse:collapse;margin:22px 0 34px;background:rgba(21,19,23,.75);font-size:15px}
+    th,td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+    th{font-family:Arial,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:#171419}
+    tr:hover td{background:rgba(255,255,255,.018)}
+    .tag{display:inline-block;padding:3px 7px;border-radius:5px;font-family:Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.04em}
+    .t-zero{background:#272328;color:#b7adb2}.t-neg{background:rgba(143,48,56,.22);color:#e0a5aa}.t-up{background:rgba(185,156,97,.17);color:#d9bd7f}.t-q{background:#27202b;color:#c6aec9}.t-loop{background:rgba(111,139,115,.18);color:#a9c0ac}
+    .contract{display:grid;grid-template-columns:1.05fr 1.95fr;gap:18px;padding:19px 0;border-bottom:1px solid var(--line)}
+    .contract:last-child{border-bottom:0}
+    .contract-name{font-size:20px;color:#eee5da}
+    .contract-meta{font-family:Arial,sans-serif;font-size:12px;color:var(--muted);margin-top:5px}
+    .price{color:var(--gold-2)}
+    ul{margin:8px 0 18px;padding-left:22px}
+    li{margin:7px 0}
+    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:28px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    .timeline>div{padding:22px;background:var(--panel);border-right:1px solid var(--line)}
+    .timeline>div:last-child{border-right:0}
+    .timeline .when{font-family:Arial,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .timeline .what{margin-top:8px;font-size:20px}
+    .statusline{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+    .statusline span{padding:6px 9px;border-radius:7px;border:1px solid var(--line);font-family:Arial,sans-serif;font-size:12px}
+    footer{margin-top:80px;padding-top:28px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+    @media(max-width:850px){.grid,.grid.two,.timeline{grid-template-columns:1fr}.timeline>div{border-right:0;border-bottom:1px solid var(--line)}.timeline>div:last-child{border-bottom:0}.contract{grid-template-columns:1fr}h2{font-size:34px}.wrap{padding-left:18px;padding-right:18px}table{display:block;overflow-x:auto;white-space:normal}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← Принципи побудови хроніки</a>
+    <div class="eyebrow">Fall of London 2020 · Крок 3</div>
+    <h1>Угоди та контракти</h1>
+    <div class="subtitle">Три ринки однієї катастрофи: передбачуваність до удару, ліквідність у ніч кризи та право на майбутнє після розпаду старого порядку.</div>
+    <div class="lead"><strong>Лондон не купує послуги. Він купує передбачуваність.</strong> Контракт потрібен Кревному не тому, що без нього неможливо проїхати містом, отримати кров або сховатися вдень. Він потрібен, щоб заздалегідь знати, хто відповідає, хто гарантує, кому винні й що станеться, якщо система дасть збій.</div>
+    <nav>
+      <a href="#logic">Логіка ринку</a><a href="#anatomy">Анатомія угоди</a><a href="#stage1">До удару</a><a href="#rupture">Напад на Елізіум</a><a href="#stage2">Ринок кризи</a><a href="#stage3">Початок 2021</a><a href="#chains">Наскрізні ланцюги</a><a href="#gm">Інструмент майстра</a>
+    </nav>
+  </header>
+
+  <section id="logic">
+    <div class="eyebrow">01 — Основний принцип</div>
+    <h2>Контракт як інфраструктура</h2>
+    <p>Економіка Лондона вже побудована на дефіциті, патентах, операторах, тарифах, лєджері та вторинному ринку зобов’язань. Угоди продовжують цю логіку. Вони не є окремою «квестовою дошкою» поверх міста — це спосіб, яким саме місто розподіляє ризик.</p>
+    <div class="formula"><span>дефіцит</span><b>→</b><span>патент / право</span><b>→</b><span>оператор</span><b>→</b><span>тариф</span><b>→</b><span>лєджер</span><b>→</b><span>вторинний ринок</span><b>→</b><span>арбітраж / новація</span></div>
+    <div class="grid">
+      <div class="card"><h4>Емітент</h4><div class="metric">Право</div><p>Корона, патентотримач або визнаний власник домену створює право, яке можна продати, здати, заставити або передати.</p></div>
+      <div class="card"><h4>Оператор</h4><div class="metric">Виконання</div><p>Той, хто реально возить, годує, чистить, ховає, реєструє або проводить через систему смертних. Патент без оператора — папір.</p></div>
+      <div class="card"><h4>Лєджер</h4><div class="metric">Визнання</div><p>Запис, свідок або гарант робить борг видимим для інших. Без механізму визнання угода стає приватною обіцянкою.</p></div>
+    </div>
+    <div class="callout"><strong>Цінність контракту = право × виконання × визнання.</strong> Якщо випадає одна ланка — угода дешевшає. Якщо випадають дві — її купують лише спекулянти. Якщо зникають усі три — лишається компромат, пам’ять або привід для помсти.</div>
+
+    <h3>Чим платять</h3>
+    <p>Бун не дорівнює фунту. Гроші оплачують смертну тертя: зарплати, оренду, перевезення, юристів, обладнання, підставні компанії. Бун оплачує вампірський ризик: ім’я гаранта, право вимагати, політичну відповідальність і майбутню поступку.</p>
+    <table>
+      <thead><tr><th>Рівень</th><th>Грошовий орієнтир</th><th>Що насправді купується</th></tr></thead>
+      <tbody>
+        <tr><td>Тривіальний бун</td><td>до ≈ £5 000</td><td>Низький ризик, коротка послуга, стандартний доступ, дрібне прикриття.</td></tr>
+        <tr><td>Мінорний бун</td><td>≈ £5 000–25 000</td><td>Помітна логістика, приватний ризик, доступ до дефіцитного ресурсу, послуга поза чергою.</td></tr>
+        <tr><td>Мажорний бун</td><td>≈ £25 000–100 000+</td><td>Системний ризик, політична гарантія, серйозне порушення чужого домену або довга залежність.</td></tr>
+        <tr><td>Бун життя</td><td>не калібрується</td><td>Виживання, остаточна відповідальність, борг, який переживає зміну тарифів і режимів.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Три канали угод</h3>
+    <div class="grid">
+      <div class="card"><h4>Ратифікований</h4><p>Видимий для Корони або патентної системи. Найкраща примусовість, найнижчий ризик шахрайства — і найбільший інформаційний слід.</p></div>
+      <div class="card"><h4>Приватний</h4><p>Сторони, гарант і свідки. Гнучкіший, але його цінність прямо залежить від репутації тих, хто переживе конфлікт.</p></div>
+      <div class="card"><h4>Поза лєджером</h4><p>Готівка, фізична застава, особистий бун або взаємний компромат. Менше слідів, але майже немає зовнішнього захисту від дефолту.</p></div>
+    </div>
+  </section>
+
+  <section id="anatomy">
+    <div class="eyebrow">02 — Анатомія</div>
+    <h2>Що має бути в кожній угоді</h2>
+    <p>Хороший контракт для хроніки — це не «NPC просить щось зробити». Він одразу показує, хто контролює ресурс, хто несе ризик і хто виграє, якщо виконавець помилиться.</p>
+    <div class="grid two">
+      <div class="card"><h4>Комерційне ядро</h4><ul><li><strong>Предмет:</strong> право, послуга, квота, доступ, секрет або відмова від претензії.</li><li><strong>Замовник:</strong> хто ставить підпис і формально платить.</li><li><strong>Оператор:</strong> хто реально виконує роботу.</li><li><strong>Ціна:</strong> гроші, бун, частка потоку, майбутня послуга.</li><li><strong>Застава:</strong> що можна забрати без нової війни.</li><li><strong>Строк / тригер:</strong> дата, подія або умова.</li></ul></div>
+      <div class="card"><h4>Політичне ядро</h4><ul><li><strong>Гарант:</strong> хто робить дефолт дорожчим за виконання.</li><li><strong>Рівень реєстрації:</strong> Корона, приватні свідки або поза лєджером.</li><li><strong>Прихований вигодонабувач:</strong> кому результат потрібен насправді.</li><li><strong>Відповідальність за Маскарад:</strong> хто платить за зачистку.</li><li><strong>Дефолт:</strong> що стається при зриві.</li><li><strong>Новація:</strong> чи можна перепродати, заставити або перетворити старий борг на новий.</li></ul></div>
+    </div>
+    <div class="statusline"><span><b>0</b> — втратив сенс</span><span><b>−</b> — став токсичним</span><span><b>↑</b> — кризова премія</span><span><b>?</b> — право оспорюється</span><span><b>↻</b> — живе лише через новацію</span></div>
+    <p class="muted">Ці позначки використовуються після нападу на центральний Елізіум: одна й та сама угода може за одну ніч змінитися з активу на доказ, з підписки на дефіцитний товар або з гарантії на прострочений папір.</p>
+  </section>
+
+  <section id="stage1">
+    <div class="eyebrow">03 — Етап I · 2020, до літа</div>
+    <h2>Ринок передбачуваності</h2>
+    <div class="card phase">
+      <h4>Стан міста</h4>
+      <p><strong>Тривога є, паніки ще немає.</strong> Друга інквізиція дедалі частіше з’являється в розмовах як пояснення дивних перевірок, зниклих контактів, небажаних камер і провалених легенд. Корона відповідає не війною, а регулюванням: більше патентів, більше реєстрації, більше контрольованих маршрутів, більше послуг, які продають «безпеку як підписку».</p>
+    </div>
+    <p>Саме на цьому етапі укладається найбільше довгих угод. Кревні купують не разовий проїзд, а шість місяців лівреї; не пакет крові, а квоту; не одну зачистку, а абонемент; не одну схованку, а сертифікований денний прихисток. Ринок поводиться так, ніби система переживе кризу.</p>
+    <div class="callout"><strong>Драматургічна іронія:</strong> чим безпечнішим здається контракт у першій половині 2020 року, тим більше він знає про свого власника. Маршрут, адреса, легенда, клініка, контакт, гарант і звичка створюють карту життя Кревного.</div>
+
+    <h3>Типові великі угоди 2020 року</h3>
+    <div class="contract"><div><div class="contract-name">1. Нічна ліврея</div><div class="contract-meta">Рух · патент · підписка</div></div><div><strong>Предмет:</strong> право користуватися погодженим транспортним контуром і маршрутом. <span class="price">База: тривіальний бун на місяць</span>, довгі пакети дають знижку. <strong>Застава:</strong> репутація оператора й маршрутний лєджер. <strong>Чому купують:</strong> передбачуваний рух без кожного разу окремо пояснювати присутність. <strong>Після Елізіуму:</strong> <span class="tag t-neg">− маршрут стає профілем поведінки</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">2. Віза Брами</div><div class="contract-meta">Вхід · легальність · гарантія</div></div><div><strong>Предмет:</strong> офіційне право в’їзду та тимчасового перебування. <span class="price">Орієнтир: мажорний бун</span>; «сліпе вікно» поза стандартною процедурою — дешевше номінально, але дорожче політично. <strong>Гарант:</strong> патентна вертикаль Брами. <strong>Після Елізіуму:</strong> <span class="tag t-q">? запис підтверджує легальність і водночас присутність</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">3. «Хор»</div><div class="contract-meta">Легенда · адміністративний шум</div></div><div><strong>Предмет:</strong> підтримання смертної легенди навколо переміщень, житла та установ. <strong>Ціна:</strong> від тривіального до мінорного буна залежно від глибини. <strong>Слабке місце:</strong> оператор знає, які елементи легенди справжні, а які створені. <strong>Після Елізіуму:</strong> <span class="tag t-loop">↻ працює лише після зміни шаблонів</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">4. Квота сертифікованої крові</div><div class="contract-meta">Кров · клеймо · інституційний контур</div></div><div><strong>Предмет:</strong> гарантований обсяг крові певного класу або доступ до інституційного живлення. <strong>Ціна:</strong> гроші за товар + бун за пріоритет і гарантію. <strong>Гарант:</strong> клеймо та оператор холодового ланцюга. <strong>Після Елізіуму:</strong> <span class="tag t-up">↑ дефіцит робить квоту дорожчою</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">5. Оренда доменного права</div><div class="contract-meta">Домен · час · резонанс</div></div><div><strong>Предмет:</strong> не весь домен, а конкретні години, заклад, група судин, резонанс або інституція. <strong>Ціна:</strong> регулярний бун чи частка потоку. <strong>Перевага:</strong> домен стає дробним активом. <strong>Після Елізіуму:</strong> <span class="tag t-q">? власність і право користування можуть розійтися</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">6. Сертифікований денний прихисток</div><div class="contract-meta">Сховище · адреса · охорона</div></div><div><strong>Предмет:</strong> гарантований безпечний сон, резервне приміщення, смертна легенда для нерухомості. <strong>Ціна:</strong> від мінорного буна за період до частки в нерухомості. <strong>Іронія:</strong> сертифікація створює список безпечних адрес. <strong>Після Елізіуму:</strong> <span class="tag t-neg">− адреса може стати мішенню</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">7. Абонемент на зачистку Маскараду</div><div class="contract-meta">Страхування · пріоритет · відповідальність</div></div><div><strong>Предмет:</strong> пріоритетна реакція на камери, свідків, невдале живлення, тіло або смертну перевірку. <strong>Ціна:</strong> регулярний платіж + окремий бун за важкий випадок. <strong>Вигода:</strong> помилка має заздалегідь визначеного власника. <strong>Після Елізіуму:</strong> <span class="tag t-up">↑ черга росте швидше за можливості операторів</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">8. Паперовий ШрекНЕТ</div><div class="contract-meta">Кур’єр · архів · стійкість</div></div><div><strong>Предмет:</strong> фізична доставка інформації, пакети маршрутів, одноразові архіви. <strong>До кризи:</strong> повільний і дорогий анахронізм. <strong>Перевага:</strong> ізольованість від цифрового контуру. <strong>Після Елізіуму:</strong> <span class="tag t-up">↑ різко дорожчає</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">9. Гарантія та арбітраж</div><div class="contract-meta">Борг · суд · примус</div></div><div><strong>Предмет:</strong> третя сторона гарантує виконання або приймає спір. <strong>Ціна:</strong> від відсотка угоди до окремого буна. <strong>Функція:</strong> замінити насильство процедурою. <strong>Після Елізіуму:</strong> <span class="tag t-neg">− якщо гарант зник, гарантія стає незабезпеченою</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">10. Елізіумний патронаж</div><div class="contract-meta">Статус · доступ · нейтралітет</div></div><div><strong>Предмет:</strong> представлення гостя, право на переговорну кімнату, приватну зустріч, прийом делегації або нейтральний стіл. <strong>Ціна:</strong> від тривіального буна до політичної взаємності. <strong>Прихований актив:</strong> хто з ким з’являється. <strong>Після нападу:</strong> <span class="tag t-neg">− список гостей перетворюється на карту зв’язків</span>.</div></div>
+    <div class="contract"><div><div class="contract-name">11. Опціон на евакуацію</div><div class="contract-meta">Страховка · тригер · резерв</div></div><div><strong>Предмет:</strong> заздалегідь оплачений маршрут, транспорт, сховище або супровід, що активується лише при загрозі. <strong>До кризи:</strong> його вважають дорогою параноєю. <strong>Після Елізіуму:</strong> <span class="tag t-up">↑ або золото, або найбільше шахрайство літа</span>.</div></div>
+
+    <h3>Що насправді продає цей ринок</h3>
+    <table>
+      <thead><tr><th>Клієнт думає, що купує</th><th>Насправді купує</th><th>Що накопичує система</th></tr></thead>
+      <tbody>
+        <tr><td>Маршрут</td><td>Передбачуваний рух</td><td>Профіль переміщень</td></tr>
+        <tr><td>Сховище</td><td>Безпечний день</td><td>Адресу та звичку</td></tr>
+        <tr><td>Кров</td><td>Контроль Голоду</td><td>Медичні й смакові вподобання</td></tr>
+        <tr><td>Арбітраж</td><td>Відсутність війни</td><td>Карту боргів і залежностей</td></tr>
+        <tr><td>Елізіум</td><td>Нейтральність</td><td>Соціальний граф міста</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="rupture">
+    <div class="eyebrow">04 — Літо 2020 · кульмінація</div>
+    <h2>Напад на центральний Елізіум</h2>
+    <div class="card phase crisis">
+      <h4>Не просто теракт — ринковий дефолт</h4>
+      <p>Удар по центральному Елізіуму доводить найгірше: місце, де Лондон демонстрував нейтралітет, статус і здатність захищати власну процедуру, не є недоторканним. Навіть якщо сам лєджер фізично не втрачено, довіра до гарантій падає одразу. Частина гарантів мертва, зникла або недоступна; частина операторів припиняє роботу; кожний старий запис тепер оцінюють ще й як можливий інформаційний слід.</p>
+    </div>
+    <div class="callout red"><strong>До нападу документ підтверджував право. Після нападу той самий документ може підтверджувати місце, маршрут, зв’язок, покровителя або звичку.</strong> Актив і доказ стають однією річчю.</div>
+
+    <h3>Переоцінка за одну ніч</h3>
+    <table>
+      <thead><tr><th>Старий актив</th><th>До удару</th><th>Після удару</th><th>Статус</th></tr></thead>
+      <tbody>
+        <tr><td>Елізіумний патронаж</td><td>Статус і доступ</td><td>Соціальна прив’язка до місця та людей</td><td><span class="tag t-neg">−</span></td></tr>
+        <tr><td>Сертифікований прихисток</td><td>Надійна адреса</td><td>Адреса, яку хтось уже може знати</td><td><span class="tag t-neg">−</span></td></tr>
+        <tr><td>Довга ліврея</td><td>Дешевий передбачуваний рух</td><td>Повторюваний маршрут</td><td><span class="tag t-loop">↻</span></td></tr>
+        <tr><td>Офіційна віза Брами</td><td>Легальність</td><td>Підтвердження часу й факту прибуття</td><td><span class="tag t-q">?</span></td></tr>
+        <tr><td>«Сліпе вікно»</td><td>Ризикований обхід</td><td>Дефіцитний непублічний канал</td><td><span class="tag t-up">↑</span></td></tr>
+        <tr><td>Квота крові</td><td>Рутинне постачання</td><td>Запас на період, коли полювання небезпечне</td><td><span class="tag t-up">↑</span></td></tr>
+        <tr><td>Паперовий ШрекНЕТ</td><td>Повільна надмірність</td><td>Стійкий канал поза цифровою панікою</td><td><span class="tag t-up">↑</span></td></tr>
+        <tr><td>Гарантія посади</td><td>Майже безризикова вимога</td><td>Вимога до інституції, майбутнє якої неясне</td><td><span class="tag t-q">?</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Нове правило ціни</h3>
+    <div class="grid">
+      <div class="card"><h4>Було</h4><p>Печатка сильніша за свідка. Посада сильніша за особисту репутацію. Майбутній бун ліквідний, бо місто визнає його завтра.</p></div>
+      <div class="card"><h4>Стало</h4><p>Фізична застава сильніша за печатку. Живий гарант сильніший за посаду. Негайне виконання сильніше за обіцянку після стабілізації.</p></div>
+      <div class="card"><h4>Наслідок</h4><p>Лондон не перестає торгувати. Він переходить із кредитної економіки довіри до короткого ринку виживання.</p></div>
+    </div>
+  </section>
+
+  <section id="stage2">
+    <div class="eyebrow">05 — Етап II · літо 2020</div>
+    <h2>Ринок розриву</h2>
+    <p>У перші ночі після атаки головною одиницею вартості стає <strong>час до світанку</strong>. Угода скорочується: менше майбутнього, менше титулів, більше застави, одноразових маршрутів і особистих гарантій. Тепер купують не «право на шість місяців», а «провези сьогодні», «сховай на дві ночі», «не називай ім’я», «збережи цей пакет, якщо я не прокинуся».</p>
+
+    <div class="contract"><div><div class="contract-name">1. «Вихід»</div><div class="contract-meta">Евакуація · негайне виконання</div></div><div><strong>Предмет:</strong> забрати Кревного, гуля або вантаж із небезпечної зони до заданого часу. <span class="price">Ціна: мінорний–мажорний бун</span> залежно від маршруту й терміну. <strong>Застава:</strong> фізичний актив або майбутня вимога до домену. <strong>Дефолт:</strong> оплата повертається лише якщо оператор живий.</div></div>
+    <div class="contract"><div><div class="contract-name">2. «Чистий сон»</div><div class="contract-meta">Незареєстрований прихисток</div></div><div><strong>Предмет:</strong> 1–3 дні в адресі, якої немає у звичних реєстрах клієнта. <strong>Ціна:</strong> дорожча за нормальну оренду в рази; часто мінорний бун за сам факт мовчання. <strong>Гарантія:</strong> не документ, а контроль приміщення й особистий ризик господаря.</div></div>
+    <div class="contract"><div><div class="contract-name">3. «Чорна ліврея»</div><div class="contract-meta">Одноразовий рух · поза лєджером</div></div><div><strong>Предмет:</strong> машина, водій і маршрут, що не повторюють старий шаблон. <strong>Ціна:</strong> мінорний бун або висока готівкова премія + компенсація оператору. <strong>Наслідок:</strong> офіційні власники ліврей втрачають частину монополії, але отримують можливість продавати власні «тіні».</div></div>
+    <div class="contract"><div><div class="contract-name">4. «Без імені»</div><div class="contract-meta">Легенда · відсікання минулого</div></div><div><strong>Предмет:</strong> відмовитися від старої смертної легенди й перейти на інший пакет прикриття. <strong>Ціна:</strong> мінорний–мажорний бун. <strong>Ризик:</strong> старі активи, контакти й документи стають важкодоступними. <strong>Прихований товар:</strong> оператор дізнається, від чого саме клієнт тікає.</div></div>
+    <div class="contract"><div><div class="contract-name">5. «Повернення»</div><div class="contract-meta">Вилучення · реліквія · доказ</div></div><div><strong>Предмет:</strong> забрати з покинутої або компрометованої точки тіло, архів, реліквію, носій, книгу або заставу. <strong>Ціна:</strong> залежить не від речі, а від того, хто ще її шукає. <strong>Прихований вигодонабувач:</strong> часто не замовник, а той, хто хоче, щоб об’єкт узагалі не дістався третій стороні.</div></div>
+    <div class="contract"><div><div class="contract-name">6. Заморозка домену</div><div class="contract-meta">Тимчасове управління</div></div><div><strong>Предмет:</strong> утримувати домен, бізнес або стадо за відсутнього власника, не визнаючи передачі права власності. <strong>Ціна:</strong> частка потоку. <strong>Конфлікт:</strong> де закінчується управління і починається привласнення. <strong>Статус:</strong> майже кожна така угода породжує спір у 2021 році.</div></div>
+    <div class="contract"><div><div class="contract-name">7. Новація</div><div class="contract-meta">Старий бун → нова послуга</div></div><div><strong>Предмет:</strong> обміняти довгий старий борг на негайну кризову послугу. Наприклад, мажорний бун із невизначеним строком перетворюється на евакуацію сьогодні з дисконтом. <strong>Сенс:</strong> ліквідність важливіша за номінал.</div></div>
+    <div class="contract"><div><div class="contract-name">8. «Тиха відповідальність»</div><div class="contract-meta">Маскарад · прийняття ризику</div></div><div><strong>Предмет:</strong> третя сторона бере на себе конкретний наслідок інциденту: свідка, смертний слід, пошкоджену легенду, конфлікт із установою. <strong>Ціна:</strong> визначається не роботою, а тим, чи доведеться замовнику публічно визнати свою причетність.</div></div>
+    <div class="contract"><div><div class="contract-name">9. Гарантія мовчання</div><div class="contract-meta">Гулі · свідки · взаємна відповідальність</div></div><div><strong>Предмет:</strong> утримати смертну або вампірську ланку від панічного розголосу. <strong>Застава:</strong> захист родини, бізнесу або конкретного активу. <strong>Дефолт:</strong> договір відразу перетворюється на проблему Маскараду, а не просто на борг.</div></div>
+    <div class="contract"><div><div class="contract-name">10. Викуп лєджеру</div><div class="contract-meta">Пакет вимог · distressed debt</div></div><div><strong>Предмет:</strong> купити пачку чужих вимог до зниклих, слабких або наляканих боржників. <strong>Ціна:</strong> значно нижча від номіналу. <strong>Ставка покупця:</strong> хоча б частину старого порядку визнають після кризи.</div></div>
+    <div class="contract"><div><div class="contract-name">11. Safe-conduct</div><div class="contract-meta">Одноразовий коридор · переговори</div></div><div><strong>Предмет:</strong> гарантувати один прохід, зустріч або обмін між сторонами, які більше не довіряють загальному нейтралітету. <strong>Застава:</strong> особистий бун гаранта або взаємно цінні активи. <strong>Строк:</strong> години, не місяці.</div></div>
+    <div class="contract"><div><div class="contract-name">12. Остання миля</div><div class="contract-meta">Кров · медикаменти · пакет · світанок</div></div><div><strong>Предмет:</strong> довезти дефіцитний вантаж до конкретної точки до закриття нічного вікна. <strong>Ціна:</strong> премія за час. <strong>Цінність:</strong> не логістика сама по собі, а здатність виконати обіцянку, коли довгий ланцюг уже не працює.</div></div>
+
+    <h3>Як дисконтуються старі вимоги</h3>
+    <table>
+      <thead><tr><th>Що забезпечує вимогу</th><th>Кризова оцінка</th><th>Чому</th></tr></thead>
+      <tbody>
+        <tr><td>Лише стара печатка / посада</td><td>низька, спекулятивна</td><td>Невідомо, хто визнає її завтра.</td></tr>
+        <tr><td>Живий особистий гарант</td><td>середня–висока</td><td>Є конкретна істота, чия репутація під ударом.</td></tr>
+        <tr><td>Оператор, що продовжує працювати</td><td>висока</td><td>Право можна перетворити на послугу прямо зараз.</td></tr>
+        <tr><td>Фізична застава</td><td>майже номінал</td><td>Не потребує майбутнього суду, щоб існувати.</td></tr>
+        <tr><td>Усна обіцянка без свідків</td><td>дуже волатильна</td><td>Її ціна дорівнює пам’яті та силі сторін.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="stage3">
+    <div class="eyebrow">06 — Етап III · початок 2021</div>
+    <h2>Ринок спадщини</h2>
+    <div class="card phase final">
+      <h4>Стан міста</h4>
+      <p>Паніка вже минула, але старий порядок не повернувся. Тепер головне питання не «хто може виконати послугу сьогодні», а <strong>«хто матиме право назвати її законною завтра»</strong>. Кревні торгують претензіями, правонаступництвом, доказами, гарантіями визнання й умовними ставками на те, хто контролюватиме Лондон після фіналу.</p>
+    </div>
+    <div class="callout"><strong>Найдорожчим товаром початку 2021 року стає визнання.</strong> Старий контракт може бути справжнім, виконаним і свідченим — але це нічого не варте, якщо новий арбітр відмовиться вважати його чинним.</div>
+
+    <div class="contract"><div><div class="contract-name">1. Контракт визнання</div><div class="contract-meta">Легітимність · майбутній порядок</div></div><div><strong>Предмет:</strong> сторона з політичною вагою зобов’язується визнати конкретний домен, бун, патент або статус після завершення кризи. <strong>Ціна:</strong> мажорний бун, частка потоку або підтримка у вирішальній справі. <strong>Це базовий фінальний контракт хроніки.</strong></div></div>
+    <div class="contract"><div><div class="contract-name">2. Правонаступництво</div><div class="contract-meta">Домен · патент · бізнес</div></div><div><strong>Предмет:</strong> визначити, хто успадковує актив зниклого, загиблого або дискредитованого власника. <strong>Конфлікт:</strong> старі спадкоємці, тимчасові оператори й кредитори можуть мати різні, але однаково правдоподібні претензії.</div></div>
+    <div class="contract"><div><div class="contract-name">3. «Старий папір»</div><div class="contract-meta">Скупка вимог · ставка на реставрацію</div></div><div><strong>Предмет:</strong> купувати старі ратифіковані вимоги з великим дисконтом. <strong>Ставка:</strong> майбутня влада підтвердить хоча б частину старого лєджеру. <strong>Ризик:</strong> покупець може успадкувати не тільки борг, а й стару ворожнечу.</div></div>
+    <div class="contract"><div><div class="contract-name">4. Остаточний кліринг</div><div class="contract-meta">Неттінг · закриття ланцюга</div></div><div><strong>Предмет:</strong> звести кілька взаємних бунів і претензій у один чистий залишок. А винен Б, Б винен В, В винен А — замість трьох залежностей залишається одна. <strong>Функція:</strong> звільнити сторони від політичного баласту перед фіналом.</div></div>
+    <div class="contract"><div><div class="contract-name">5. Ескроу доказу</div><div class="contract-meta">Архів · секрет · тригер</div></div><div><strong>Предмет:</strong> передати третій стороні доказ, лист, реліквію або запис з умовою розкриття при конкретній події: смерті, зникненні, порушенні договору, зміні влади. <strong>Цінність:</strong> слабкий Кревний може зробити напад на себе дорожчим.</div></div>
+    <div class="contract"><div><div class="contract-name">6. Умовний фракційний контракт</div><div class="contract-meta">Опціон · влада · майбутнє</div></div><div><strong>Предмет:</strong> «якщо сторона X контролює місто / посаду / вертикаль, право Y переходить до нас». <strong>Ціна:</strong> підтримка зараз в обмін на актив потім. <strong>Небезпека:</strong> одна котерія може підписати несумісні умови з кількома блоками.</div></div>
+    <div class="contract"><div><div class="contract-name">7. Зовнішня гарантія</div><div class="contract-meta">Міжнародний свідок · запасна юрисдикція</div></div><div><strong>Предмет:</strong> підтвердження боргу, особи, права або безпечного проходу стороною поза внутрішнім лондонським конфліктом. <strong>Ціна:</strong> дорого, зате така гарантія переживає локальну зміну посад.</div></div>
+    <div class="contract"><div><div class="contract-name">8. Ковенант захисту</div><div class="contract-meta">Гулі · родина · інфраструктура</div></div><div><strong>Предмет:</strong> гарантія безпеки конкретних смертних, родини, гуля або установи незалежно від долі самого Кревного. <strong>Ціна:</strong> актив, який передається наперед, або бун життя. <strong>Функція:</strong> дозволяє персонажу ризикувати собою у фіналі.</div></div>
+    <div class="contract"><div><div class="contract-name">9. «Останній Елізіум»</div><div class="contract-meta">Тимчасовий нейтралітет</div></div><div><strong>Предмет:</strong> створити на одну ніч нейтральний майданчик без віри в старий статус. <strong>Гарантія:</strong> взаємні застави, окремі свідки, обмежений перелік учасників і заздалегідь визначена відповідальність. <strong>Сенс:</strong> нейтралітет більше не традиція — це контрактна послуга.</div></div>
+    <div class="contract"><div><div class="contract-name">10. Кров як воєнне фінансування</div><div class="contract-meta">Постачання зараз · патент потім</div></div><div><strong>Предмет:</strong> оператор забезпечує кров, транспорт або клініку під час фінальної кризи в обмін на майбутню монополію, тариф або частку ринку. <strong>Наслідок:</strong> після перемоги нова влада вже обтяжена контрактами, укладеними до неї.</div></div>
+    <div class="contract"><div><div class="contract-name">11. Розділена опіка над реліквією</div><div class="contract-meta">Володіння ≠ право власності</div></div><div><strong>Предмет:</strong> одна сторона фізично зберігає предмет, інша має право на використання, третя — право підтвердити походження. <strong>Функція:</strong> зробити крадіжку недостатньою для повної перемоги.</div></div>
+    <div class="contract"><div><div class="contract-name">12. Опціон виходу</div><div class="contract-meta">Фінальний тригер</div></div><div><strong>Предмет:</strong> заздалегідь визначений вихід із міста, притулок або передача активів, що активується лише при конкретному фінальному результаті. <strong>Ціна:</strong> висока саме тому, що оператор резервує ресурс, який може ніколи не знадобитися.</div></div>
+  </section>
+
+  <section id="chains">
+    <div class="eyebrow">07 — Наскрізні ланцюги</div>
+    <h2>Одна угода через три етапи</h2>
+    <p>Найкраще контракти працюють у грі, коли персонажі бачать один і той самий актив у трьох різних економіках. Це створює пам’ять: рішення першого акту повертається не як «сюжетний твіст», а як переоцінений борг.</p>
+    <table>
+      <thead><tr><th>Актив</th><th>2020: передбачуваність</th><th>Літо: розрив</th><th>2021: спадщина</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ліврея</strong></td><td>Довгий ліцензований маршрут дешевший і зручніший.</td><td>Повторюваний маршрут компрометується; потрібна «чорна» одноразова лінія.</td><td>Стара ліцензія стає аргументом у боротьбі за майбутню транспортну монополію.</td></tr>
+        <tr><td><strong>Елізіумний патронаж</strong></td><td>Доступ, статус, переговори.</td><td>Список гостей і покровителів стає картою зв’язків.</td><td>Свідчення вцілілого патрона може підтвердити старий статус або право.</td></tr>
+        <tr><td><strong>Кров</strong></td><td>Фіксована квота, клеймо, передбачувана логістика.</td><td>Дефіцит; оператор важливіший за паперову квоту.</td><td>Оператор обмінює постачання на політичний патент майбутнього.</td></tr>
+        <tr><td><strong>Домен / сховище</strong></td><td>Реєстрація робить право захищеним.</td><td>Зареєстрована адреса стає потенційним ризиком; актив переходить у тимчасову опіку.</td><td>Починається спір між власником, опікуном, кредитором і новою владою.</td></tr>
+        <tr><td><strong>Брама</strong></td><td>Легальний вхід і тариф за контрольований доступ.</td><td>Вихід важливіший за вхід; старі записи можуть бути небезпечними.</td><td>Зовнішня гарантія й притулок стають частиною політичного торгу.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="gm">
+    <div class="eyebrow">08 — Інструмент майстра</div>
+    <h2>Як угоди створюють історію</h2>
+    <div class="grid two">
+      <div class="card"><h4>На кожну сесію</h4><p>Показати 3–5 живих контрактів: <strong>вигідний</strong>, <strong>необхідний</strong>, <strong>отруєний</strong>, <strong>той, що спливає</strong>, і за потреби <strong>чужий контракт, який можна перехопити</strong>. Гравцям не треба брати всі — решту закриють NPC.</p></div>
+      <div class="card"><h4>Після кожної сесії</h4><p>Кожна підписана, зірвана або проігнорована угода повинна змінити щонайменше два лєджери: <strong>буни/борги, репутацію, доступ, підтримку фракції, увагу Інквізиції, контроль потоку або право на домен</strong>.</p></div>
+    </div>
+
+    <h3>Картка живого контракту</h3>
+    <table>
+      <tbody>
+        <tr><th>Статус</th><td>Активний / проблемний / заморожений / виконаний / дефолт / оспорюється.</td></tr>
+        <tr><th>Предмет</th><td>Що саме переходить: право, послуга, квота, доступ, секрет, відмова від претензії.</td></tr>
+        <tr><th>Замовник</th><td>Хто формально ставить підпис.</td></tr>
+        <tr><th>Виконавець</th><td>Хто фізично або адміністративно робить роботу.</td></tr>
+        <tr><th>Ціна</th><td>Гроші + рівень буна + частка потоку, якщо є.</td></tr>
+        <tr><th>Застава</th><td>Що можна забрати без нового суду.</td></tr>
+        <tr><th>Гарант</th><td>Хто робить дефолт дорожчим за виконання.</td></tr>
+        <tr><th>Прихований вигодонабувач</th><td>Хто отримує стратегічну перевагу.</td></tr>
+        <tr><th>Маскарад</th><td>Хто платить за наслідки й кому належить проблема при провалі.</td></tr>
+        <tr><th>Строк / тригер</th><td>Коли угода активується, спливає або переоцінюється.</td></tr>
+        <tr><th>Після Елізіуму</th><td><span class="tag t-zero">0</span> <span class="tag t-neg">−</span> <span class="tag t-up">↑</span> <span class="tag t-q">?</span> <span class="tag t-loop">↻</span> — що відбувається з нею після кульмінації.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Правило автономного міста</h3>
+    <p>Контракт, який гравці не взяли, не зникає. Замовник знаходить іншого виконавця, знижує вимоги, продає право, переносить ризик або допускає дефолт. Через 2–3 сесії персонажі мають побачити наслідок чужої угоди: новий власник, закритий маршрут, дорожча кров, зниклий свідок, інший гарант.</p>
+    <div class="callout"><strong>Так у хроніку природно входять ситуативні Кревні.</strong> Їм не потрібне місце в основній міській ієрархії. Достатньо бути власником 7% активу, поручителем однієї угоди, кур’єром одного пакета, спадкоємцем одного боргу або оператором, який пережив кризу краще за свого патрона.</div>
+
+    <h3>Драматургічний ритм трьох етапів</h3>
+    <div class="timeline">
+      <div><div class="when">До літа 2020</div><div class="what">«Підпиши — і проблема стане передбачуваною».</div><p class="muted">Довгі договори, тарифи, гарантії, віра в процедуру.</p></div>
+      <div><div class="when">Літо 2020</div><div class="what">«Плати зараз — завтра цього ринку може не бути».</div><p class="muted">Короткі угоди, фізична застава, евакуація, дефіцит, новація.</p></div>
+      <div><div class="when">Початок 2021</div><div class="what">«Допоможи мені сьогодні — і я визнаю твоє право завтра».</div><p class="muted">Правонаступництво, кліринг, зовнішні гарантії, умовні ставки на майбутню владу.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Fall of London 2020 · Крок 3.</strong> Розділ побудований як продовження економічної моделі Лондона: патенти, оператори, тарифи, буни, лєджер, гарантії та вторинний ринок вимог.</p>
+    <p><a href="./">← Повернутися до головного документа</a></p>
+  </footer>
+</div>
+</body>
+</html>
